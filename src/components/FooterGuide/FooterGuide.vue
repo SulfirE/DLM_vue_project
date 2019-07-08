@@ -1,6 +1,6 @@
 <template>
   <footer class="footer_guide border-1px">
-    <span class="guide_item" :class="{on: $route.path==='/msite'}" @click="goTo('/msite')"><!-- 什么时候用对象语法: 类名确定, 但不确定有没有 -->
+    <span class="guide_item" :class="{on: $route.path==='/msite'}" @click="goTo('/msite')">
       <span class="item_icon">
         <i class="iconfont icon-waimai"></i>
       </span>

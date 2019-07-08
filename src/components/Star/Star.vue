@@ -7,28 +7,21 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      score: Number, // 评分
-      size: Number, // 尺寸
+      score: Number, 
+      size: Number, 
     },
 
     computed: {
-      /*
-      星星类名的数组
-      3.5 = 3 + 1 + 1
-      */
       starClasses () {
         const {score} = this
         const scoreInteger = Math.floor(score)
         const arr = []
-        // 1. 添加n个on
         for (let i = 0; i < scoreInteger; i++) {
           arr.push('on')
         }
-        // 2. 添加0/1个half
         if (score*10-scoreInteger*10 >= 5) {
           arr.push('half')
         }
-        // 3. 添加m个off
         while(arr.length<5) {
           arr.push('off')
         }
@@ -43,7 +36,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '../../common/stylus/mixins.styl'
 
-  .star //2x图 3x图
+  .star 
     float left
     font-size 0
     .star-item

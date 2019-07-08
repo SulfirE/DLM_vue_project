@@ -1,12 +1,14 @@
 /* 
 包含n个接口请求函数的模块
-每个函数返回的都是promise
+每个函数返回的都是promise对象
 */
 import ajax from './ajax'
 
 const BASE = '/api'
 
 // 根据经纬度获取位置详情
+// longitude 经度 东西走向的
+//latitude 纬度 南北走向的
 export const reqAddress = (longitude, latitude) => ajax.get(BASE + `/position/${latitude},${longitude}`)
 
 // 获取食品分类列表
@@ -29,14 +31,14 @@ export const reqSendCode = (phone) => ajax({
   params: { phone }
 })
 
-// 用户名密码登陆
+// 用户名密码登录
 export const reqPwdLogin = ({ name, pwd, captcha }) => ajax({
   method: 'POST',
   url: BASE + '/login_pwd',
   data: {
     name,
     pwd,
-    captcha
+    captcha//验证码
   }
 })
 

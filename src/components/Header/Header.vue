@@ -11,7 +11,6 @@
 <script type="text/ecmascript-6">
   export default {
     name: 'Header',
-    // 声明接收属性
     props: {
       title: String
     }

@@ -39,7 +39,7 @@ export default [
   },
 
   {
-    path: '/', // 项目根路径
+    path: '/', 
     redirect: '/msite'
   }
 ]

@@ -13,19 +13,19 @@ import qs from 'qs'
 import store from '../vuex/store'
 import router from '../router'
 
-// 请求超时的全局配置
-axios.defaults.timeout = 20000 // 20s
+// 配置最大时间
+axios.defaults.timeout = 20000
 
-// 添加请求拦截器
+// 请求拦截器
 axios.interceptors.request.use((config) => {
 
   const {method, data} = config  
-  // 如果是携带数据的post请求, 进行处理
+  // 因为后台接收数据的原因，在这里处理post请求
   if (method.toLowerCase()==='post' && data && typeof data==='object') {
     config.data = qs.stringify(data) // {name: 'tom', pwd: '123'} ==> name=tom&pwd=123
   }
 
-  // 如果浏览器有tokden, 就自动携带上token
+  // 携带浏览器的token
   const token = localStorage.getItem('token_key')
   if (token) {
     config.headers.Authorization = 'token ' + token
@@ -35,16 +35,16 @@ axios.interceptors.request.use((config) => {
 });
 
 
-// 添加一个响应拦截器
+// 响应拦截器
 axios.interceptors.response.use(response => {
-  // 返回response中的data数据, 这样请求成功的数据就是data了
+  // 返回data数据
   return response.data
 }, error => {// 请求异常
 
   const status = error.response.status
   const msg = error.message
   if (status === 401) { // 未授权
-    // 退出登陆
+    // 退出登录
     store.dispatch('logout')
     router.replace('/login')
     alert(error.response.data.message)
@@ -53,27 +53,7 @@ axios.interceptors.response.use(response => {
   } else {
     alert('请求异常: ' + msg)
   }
-
-  // return error
-  // return Promise.reject(error)
   return new Promise(() => {})  // 中断promise链
 })
 
 export default axios
-
-
-/* axios.get('/api/test_get',  {
-  params: {name: '张三', pwd: '456'}
-}) */
-/* axios.post('/api/test_post', {name: 'Tom', pwd: '123'})
-  .then(data => {
-    console.log('请求成功', data)
-  }) */
-/* axios.post('/baidu/test_post', {name: 'Tom', pwd: '123'})
-  .then(data => {
-    console.log('请求成功', data)
-  })
-  .catch(error => {
-    console.log('请求异常', error.message)
-  })
- */
